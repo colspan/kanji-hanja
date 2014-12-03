@@ -7,6 +7,22 @@
   <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link rel="stylesheet" href="css/d3.parsets.css" type="text/css" />
   <style>
+  body{
+    position:relative;
+    padding-bottom:120px;
+    min-height: 100%;
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    padding:10px;
+    width: 100%;
+    height: 100px;
+    background-color: #f5f5f5;
+    border-style:solid;
+    border-width:1px 0 0 0;
+    border-color:#c0c0c0;
+  }
 
   .ribbon-mouse path{
     cursor:pointer;
@@ -67,6 +83,16 @@
   <script src="lib/d3.parsets.js"></script>
 </head>
 <body>
+  <div id="fb-root"></div>
+  <script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&appId=123030901113452&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
   <div class="container">
     <h1>Kanji/Hanja Pronunciations <small>Comparison between JP and KR</small></h1>
 
@@ -83,7 +109,11 @@
       </div>
 
       <div class="span5">
-        Facebook
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://colspan.github.io/kanji-hanja/" data-via="colspan" data-hashtags="kanji-hanja-colspan">Tweet</a>
+        <script>
+          !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+        </script>
+        <div class="fb-like" data-href="http://colspan.github.io/kanji-hanja/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
       </div>
     </div>
 
@@ -120,7 +150,7 @@
 
 
 <script>
-var chart = d3.parsets().height('300').width('940')
+var chart = d3.parsets().height('400').width('940')
       .dimensions(
         [
           "かな(初声)",
@@ -222,29 +252,45 @@ function chartTooltip(d) {
   $('#chart_tooltips').html(path.join(' <i class="icon-arrow-right"></i> ') + " " + d3.format(",f")(count) + " (" + d3.format("%")(count / d.count) + ")");
 }
 
-
-
-
 </script>
 
-  <h2>説明</h2>
+  <div class="row">
+    <div class="span6">
 
-  <ol>
-    <li>1563文字のべ1838通りの読みについて、日韓の対応関係を可視化</li>
-    <ol>
-      <li><a href="http://ja.wikipedia.org/wiki/Wikipedia:%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89">Wikipediaダウンロード</a>より抽出した日韓の題名から同一表記(音読み)の記事を抽出。</li>
-      <li>日本語の読み及び初/中/終声の分解にはChasen(Juman)およびKakasiの出力結果を利用</li>
-      <li>韓国語体(旧字体)と日本語体の対応はTODOの対応表で解決</li>
-      <li>機械的抽出に混じった訓読みは手作業で削除</li>
-      <li>※常用漢字の網羅度は未集計</li>
-    </ol>
-  </ol>
+      <h2>概要</h2>
+      <p>一般的に知られている<a href="http://colspan.hatenablog.com/entry/2014/11/04/211152">日韓の漢字読みの対応</a>を定量的に可視化した。データにはWikipediaの題名突き合わせによって抽出した約1500文字、のべ約1700通りの漢字読みを用いた。</p>
 
-  <h2>ライセンス</h2>
+    </div>
 
-  <p>MIT Licenseとします。</p>
+    <div class="span6">
+      <h2>分析情報源</h2>
+      <table class="table table-bordered table-condensed">
+        <tr><td>コーパス</td><td><a href="http://ja.wikipedia.org/wiki/Wikipedia:%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89">Wikipedia ダウンロード</a></td></tr>
+        <tr><td>ハングル漢字変換</td><td><a href="http://nlp.kookmin.ac.kr/data/hanja.html">한글 &lt;-&gt; 한자 코드 변환</a></td></tr>
+        <tr><td>日本語形態素解析</td><td><a href="http://chasen-legacy.sourceforge.jp/">Chasen</a></td></tr>
+        <tr><td>漢字読み仮名変換</td><td><a href="http://kakasi.namazu.org/">Kakasi</a></td></tr>
+        <tr><td>韓国語体(旧字体)日本語体(新字体)変換</td><td><a href="http://www.geocities.jp/qjitai/">旧字体・新字体変換</a></td></tr>
+      </table>
+    </div>
+  </div>
 
 </div>
 
+<footer class="footer">
+  <div class="container">
+    <p>Author : <a href="http://twitter.com/colspan">@colspan</a> [<a href="http://github.com/colspan">github</a>]</p>
+    <p>This software and the analyzed corpus data are released under the <a href="LICENSE.txt">MIT License</a>.<br />
+       Data visualization is implemented based on <a href="http://jquery.com/">jQuery</a>, <a href="http://d3js.org/">d3.js</a>, and <a href="https://github.com/jasondavies/d3-parsets">d3.parsets.js</a>.</p>
+  </div>
+</footer>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-57298169-1', 'auto');
+ga('send', 'pageview');
+</script>
 </body>
 </html>
