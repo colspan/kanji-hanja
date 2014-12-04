@@ -25,6 +25,13 @@
 .category-7 { fill: #7f7f7f; stroke: #7f7f7f; }
 .category-8 { fill: #bcbd22; stroke: #bcbd22; }
 .category-9 { fill: #17becf; stroke: #17becf; }
+.category-10 { fill: #FFF435; stroke: #FFF435; }
+.category-11 { fill: #3AFF47; stroke: #3AFF47; }
+.category-12 { fill: #FF3A89; stroke: #FF3A89; }
+.category-13 { fill: #8432EF; stroke: #8432EF; }
+.category-14 { fill: #A02206; stroke: #A02206; }
+.category-15 { fill: #860E9E; stroke: #860E9E; }
+.category-16 { fill: #076E9E; stroke: #076E9E; }
 
 .tooltip {
   background-color: rgba(242, 242, 242, .8);
