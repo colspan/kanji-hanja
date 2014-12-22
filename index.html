@@ -33,6 +33,9 @@
     table-layout: fixed;
     cursor:pointer;
   }
+  #kanji_list table th{
+    vertical-align:middle;
+  }
   #kanji_list table tr:hover td{
     background:#ddddff;
   }
@@ -127,7 +130,12 @@
       <div class="span7" id="kanji_list">
         <table class="table table-condensed table-bordered">
           <thead>
-            <tr><th>Kanji/Hanja(漢字) <span class="badge badge-info" id="kanji_hit_number">0</span></th><th>Japanese(日本語)</th><th>Korean(한국어)</th></tr>
+            <tr>
+              <th>Kanji/Hanja(漢字)<br /><span class="badge badge-info" id="kanji_hit_number">0</span></th>
+              <th>Japanese<br />(日本語)</th>
+              <th>Korean<br />(한국어)</th>
+              <th>Old Japanese<br />(日本語旧仮名遣い)</th>
+            </tr>
           </thead>
         </table>
         <div id="kanji_list_scroller">
@@ -142,7 +150,7 @@
         <div id="kanji_face"></div>
       </div>
       <div class="span3">
-        <div class="pronounce_display"><span class="label">Japanese</span> <span id="kana"></span> <span id="kana_romaji"></span></div>
+        <div class="pronounce_display"><span class="label">Japanese</span> <span id="kana"></span> <span id="kana_romaji"></span> <span id="oldkana"></span></div>
         <div class="pronounce_display"><span class="label">Korean</span> <span id="hangul"></span> <span id="hangul_romaja"></span></div>        </div>
       </div>
 
@@ -227,7 +235,7 @@ function chartRibbonClicked(d,nodes){
   var kanji_list_elem = d3.select('#kanji_tbody');
   var rows = kanji_list_elem.selectAll('tr').data(searched_kanjis);
   rows.enter().append('tr');
-  var cells = rows.selectAll("td").data(function(d){return [ d["kanji"], d["kana"]+"("+d["kana_romaji"]+")", d["hangul"]+"("+d["hangul_romaja"]+")" ];});
+  var cells = rows.selectAll("td").data(function(d){return [ d["kanji"], d["kana"]+"("+d["kana_romaji"]+")", d["hangul"]+"("+d["hangul_romaja"]+")", d["oldkana"] ];});
   cells.enter().append("td");
   cells.exit().remove();
   cells.text(function(d){return d;});
@@ -236,6 +244,7 @@ function chartRibbonClicked(d,nodes){
     $('#kanji_face').text(d['kanji']);
     $('#kana').text(d['kana']);
     $('#kana_romaji').text(d['kana_romaji']);
+    $('#oldkana').text(d['oldkana']==""?"":" ("+d['oldkana']+")");
     $('#hangul').text(d['hangul']);
     $('#hangul_romaja').text(d['hangul_romaja']);
   });
@@ -269,6 +278,7 @@ function chartTooltip(d) {
         <tr><td>ハングル漢字変換</td><td><a href="http://nlp.kookmin.ac.kr/data/hanja.html">한글 &lt;-&gt; 한자 코드 변환</a></td></tr>
         <tr><td>日本語形態素解析</td><td><a href="http://chasen-legacy.sourceforge.jp/">Chasen</a></td></tr>
         <tr><td>漢字読み仮名変換</td><td><a href="http://kakasi.namazu.org/">Kakasi</a></td></tr>
+        <tr><td>漢字読み旧仮名遣い仮名変換</td><td><a href="http://www5a.biglobe.ne.jp/~accent/form/henkan.htm">歴史的仮名遣い変換辞書<br />「快適仮名遣ひ」</a></td></tr>
         <tr><td>韓国語体(旧字体)日本語体(新字体)変換</td><td><a href="http://www.geocities.jp/qjitai/">旧字体・新字体変換</a></td></tr>
       </table>
     </div>
